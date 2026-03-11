@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperSynapseAX & Computation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>HyperSynapseAX | Advanced AI Computation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
         :root {
-            --bg-color: #050505;
-            --surface-color: #121212;
+            --bg-color: #030305;
+            --surface-color: rgba(18, 18, 22, 0.7);
             --primary-accent: #00f0ff; /* Cyberpunk/High-tech cyan */
             --secondary-accent: #7000ff;
+            --core-accent: #ff0055; /* ADSE Core color */
             --text-main: #f0f0f0;
             --text-muted: #888888;
-            --border-color: #333;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -30,143 +33,196 @@
             overflow-x: hidden;
         }
 
-        /* Glitch / Glow Effects */
-        .glow-text {
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
+        #particles-js {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a0a12 0%, var(--bg-color) 100%);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Hero Section */
         header {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
-            background: radial-gradient(circle at center, #1a1a24 0%, var(--bg-color) 70%);
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=') repeat;
-            z-index: 0;
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            z-index: 1;
+            padding-top: 50px;
         }
 
         .subtitle {
             font-family: 'JetBrains Mono', monospace;
             color: var(--primary-accent);
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             font-size: 0.9rem;
             text-transform: uppercase;
             margin-bottom: 20px;
             display: inline-block;
             border-bottom: 1px solid var(--primary-accent);
             padding-bottom: 5px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
         }
 
         h1 {
-            font-size: 4rem;
-            font-weight: 800;
+            font-size: 5rem;
+            font-weight: 900;
             margin-bottom: 20px;
-            letter-spacing: -1px;
-            background: linear-gradient(45deg, #fff, #888);
+            letter-spacing: -2px;
+            line-height: 1.1;
+            background: linear-gradient(to right, #fff, var(--primary-accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: var(--surface-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         /* Sections */
         section {
             padding: 100px 0;
-            border-top: 1px solid var(--border-color);
+            position: relative;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 50px;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
             text-align: center;
             color: #fff;
+            letter-spacing: -1px;
         }
 
-        /* Skills (APFO / ADSE) */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 60px;
+            font-size: 1rem;
+            letter-spacing: 2px;
         }
 
-        .skill-card {
-            background-color: var(--surface-color);
-            padding: 50px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        /* Core Engine (ADSE) */
+        .core-engine-card {
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            background: linear-gradient(180deg, rgba(0, 240, 255, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(0, 240, 255, 0.05);
             position: relative;
+            margin-bottom: 40px;
             overflow: hidden;
         }
 
-        .skill-card::after {
+        .core-engine-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s ease;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, rgba(0, 240, 255, 0.1), transparent 30%);
+            animation: rotate 10s linear infinite;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border-color: #555;
+        @keyframes rotate {
+            100% { transform: rotate(1turn); }
         }
 
-        .skill-card:hover::after {
-            transform: scaleX(1);
+        .core-content {
+            position: relative;
+            z-index: 1;
         }
 
-        .skill-title {
-            font-size: 2rem;
-            font-weight: 800;
+        .core-badge {
+            background: var(--primary-accent);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            display: inline-block;
             margin-bottom: 20px;
-            color: var(--primary-accent);
-            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 0 15px var(--primary-accent);
         }
 
-        .skill-desc {
+        /* Sub Modules Grid */
+        .sub-modules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        /* Connecting Lines (Visual Hack) */
+        .connection-lines {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(0, 240, 255, 0.5), transparent);
+        }
+
+        .sub-module-card {
+            padding: 40px;
+            transition: all 0.3s ease;
+            border-top: 2px solid transparent;
+        }
+
+        .sub-module-card:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--secondary-accent);
+            box-shadow: 0 10px 30px rgba(112, 0, 255, 0.1);
+            background: rgba(18, 18, 22, 0.9);
+        }
+
+        .module-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-title span {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 0.9rem;
+            font-weight: 400;
         }
 
         /* Workstation Specs */
         .specs-container {
-            background: var(--surface-color);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            padding: 60px;
-            position: relative;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+            padding: 50px;
         }
 
         .spec-item {
             display: flex;
             align-items: center;
-            padding: 25px 0;
+            padding: 20px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -177,27 +233,29 @@
         .spec-label {
             font-family: 'JetBrains Mono', monospace;
             color: var(--text-muted);
-            width: 150px;
-            font-size: 1rem;
+            width: 180px;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .spec-value {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #fff;
+            flex: 1;
         }
 
         .highlight-badge {
             background: rgba(0, 240, 255, 0.1);
             color: var(--primary-accent);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             margin-left: 15px;
             border: 1px solid rgba(0, 240, 255, 0.2);
             font-family: 'JetBrains Mono', monospace;
+            vertical-align: middle;
         }
 
         /* Footer */
@@ -207,96 +265,89 @@
             color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .skills-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 3rem; }
+            .sub-modules-grid { grid-template-columns: 1fr; }
             .spec-item { flex-direction: column; align-items: flex-start; }
-            .spec-label { margin-bottom: 10px; }
-            .highlight-badge { margin-left: 0; margin-top: 10px; display: inline-block; }
+            .spec-label { margin-bottom: 5px; }
+            .highlight-badge { margin-left: 0; margin-top: 5px; display: inline-block; }
+            .core-engine-card { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
     <header>
         <div class="container hero-content">
-            <div class="subtitle">HyperSynapseAX Environment</div>
-            <h1>BEYOND LIMITS.<br>ENGINEERED FOR PERFECTION.</h1>
-            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.2rem;">
-                High-end systems and solution architecture combining<br>top-tier computational power and unrivaled technical expertise.
+            <div class="subtitle">NEURAL AI INFRASTRUCTURE</div>
+            <h1>HYPERSYNAPSE<br>INTELLIGENCE</h1>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.2rem;">
+                Empowering the future of semiconductor inspection and data processing through hyper-scale artificial neural networks and unrivaled computational architecture.
             </p>
         </div>
     </header>
 
-    <section id="expertise">
+    <section id="ai-vision-suite">
         <div class="container">
-            <h2 class="section-title">CORE EXPERTISE</h2>
-            <div class="skills-grid">
-                <!-- APFO -->
-                <div class="skill-card">
-                    <div class="skill-title">APFO</div>
-                    <div style="color: #fff; font-weight: 600; margin-bottom: 15px; font-size: 1.2rem;">AI Pattern Focus Optimization</div>
-                    <p class="skill-desc">
-                        Advanced AI-driven precision technology for Z-axis focus optimization utilizing pattern sharpness metrics. It radically improves inspection accuracy by maintaining perfect focus dynamically, enabling flawless image capture and real-time processing of high-resolution wafer images.
-                    </p>
-                </div>
-                <!-- ADSE -->
-                <div class="skill-card">
-                    <div class="skill-title">ADSE</div>
-                    <div style="color: #fff; font-weight: 600; margin-bottom: 15px; font-size: 1.2rem;">AI Defect Signal Enhancement</div>
-                    <p class="skill-desc">
-                        Deep learning-based enhancement of weak emission signals in high-noise environments. This technology isolates and amplifies critical defect signatures, ensuring maximum accuracy and reliability in extreme computational conditions by leveraging the full power of ultra-high-end hardware.
+            <h2 class="section-title">AI Vision Optimization Suite</h2>
+            <div class="section-subtitle">THE NEURAL CORE AND ITS SATELLITE MODULES</div>
+            
+            <!-- CORE ENGINE: ADSE -->
+            <div class="glass-panel core-engine-card">
+                <div class="core-content">
+                    <div class="core-badge">CENTRAL AI CORE ENGINE</div>
+                    <h3 style="font-size: 3rem; font-weight: 900; color: #fff; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; text-shadow: 0 0 20px rgba(255,255,255,0.3);">ADSE</h3>
+                    <div style="font-size: 1.5rem; color: var(--primary-accent); font-weight: 600; margin-bottom: 20px;">AI Defect Signal Enhancement</div>
+                    <p style="max-width: 800px; margin: 0 auto; color: #ccc; font-size: 1.1rem; line-height: 1.8;">
+                        The foundational deep learning neural engine. ADSE processes massive data streams in extreme-noise environments, isolating and amplifying critical defect signatures. It acts as the central brain, governing and enhancing the capabilities of all peripheral inspection modules.
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="ai-vision-suite">
-        <div class="container">
-            <h2 class="section-title" style="margin-bottom: 10px;">AI Vision Optimization Suite</h2>
-            <div style="text-align: center; color: var(--primary-accent); font-family: 'JetBrains Mono', monospace; margin-bottom: 50px; font-size: 1.1rem; letter-spacing: 1px;">COMPREHENSIVE AI-BASED WAFER INSPECTION FRAMEWORK</div>
-            
-            <div class="specs-container">
-                <div class="spec-item" style="align-items: flex-start;">
-                    <div class="spec-label" style="width: 120px; color: #fff; font-size: 1.2rem; font-weight: bold;">APFO</div>
-                    <div style="flex: 1;">
-                        <div style="color: var(--primary-accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">AI Pattern Focus Optimization</div>
-                        <div style="color: var(--text-muted); line-height: 1.5;">Precision Z-axis focus optimization using pattern sharpness AI metrics.</div>
+            <!-- SUB MODULES -->
+            <div style="position: relative;">
+                <div class="connection-lines"></div>
+                <div class="sub-modules-grid">
+                    <!-- APFO -->
+                    <div class="glass-panel sub-module-card">
+                        <div class="module-title">APFO <span>// Vision Focus</span></div>
+                        <div style="color: var(--secondary-accent); font-weight: 600; margin-bottom: 10px;">AI Pattern Focus Optimization</div>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">
+                            Powered by ADSE's metrics, APFO autonomously controls Z-axis precision. It dynamically maintains perfect focus, ensuring flawless image capture of micro-patterns in real-time.
+                        </p>
                     </div>
-                </div>
-                <div class="spec-item" style="align-items: flex-start;">
-                    <div class="spec-label" style="width: 120px; color: #fff; font-size: 1.2rem; font-weight: bold;">AEM</div>
-                    <div style="flex: 1;">
-                        <div style="color: var(--primary-accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">AI Emission Mapping</div>
-                        <div style="color: var(--text-muted); line-height: 1.5;">Adaptive normalization and color visualization of emission intensity.</div>
+                    <!-- AEM -->
+                    <div class="glass-panel sub-module-card">
+                        <div class="module-title">AEM <span>// Data Mapping</span></div>
+                        <div style="color: var(--secondary-accent); font-weight: 600; margin-bottom: 10px;">AI Emission Mapping</div>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">
+                            Utilizes the core engine to adaptive-normalize and visualize emission intensity. Translates complex raw signals into intuitive, color-coded spatial maps.
+                        </p>
                     </div>
-                </div>
-                <div class="spec-item" style="align-items: flex-start;">
-                    <div class="spec-label" style="width: 120px; color: #fff; font-size: 1.2rem; font-weight: bold;">AED</div>
-                    <div style="flex: 1;">
-                        <div style="color: var(--primary-accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">AI Emission Diagnostics</div>
-                        <div style="color: var(--text-muted); line-height: 1.5;">AI-based emission point detection for locating thermal and optical hotspots.</div>
+                    <!-- AED -->
+                    <div class="glass-panel sub-module-card">
+                        <div class="module-title">AED <span>// Diagnostics</span></div>
+                        <div style="color: var(--secondary-accent); font-weight: 600; margin-bottom: 10px;">AI Emission Diagnostics</div>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">
+                            An analytical layer built on top of ADSE. It pinpoints thermal and optical hotspots instantly, providing critical diagnostic insights for wafer health.
+                        </p>
                     </div>
-                </div>
-                <div class="spec-item" style="align-items: flex-start;">
-                    <div class="spec-label" style="width: 120px; color: #fff; font-size: 1.2rem; font-weight: bold;">APDD</div>
-                    <div style="flex: 1;">
-                        <div style="color: var(--primary-accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">AI Pattern Defect Detection</div>
-                        <div style="color: var(--text-muted); line-height: 1.5;">Automated detection of wafer micro-pattern defects and process particles.</div>
-                    </div>
-                </div>
-                <div class="spec-item" style="align-items: flex-start; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 8px; padding: 20px; margin-top: 10px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);">
-                    <div class="spec-label" style="width: 120px; color: #fff; font-size: 1.4rem; font-weight: 900; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);">ADSE</div>
-                    <div style="flex: 1;">
-                        <div style="color: var(--primary-accent); font-weight: 800; font-size: 1.2rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
-                            AI Defect Signal Enhancement
-                            <span style="background: var(--primary-accent); color: #000; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 900; letter-spacing: 1px;">CORE ENGINE</span>
-                        </div>
-                        <div style="color: #ddd; line-height: 1.6; font-weight: 400;">Deep learning-based enhancement of weak emission signals in high-noise environments. Acts as the foundational processing unit.</div>
+                    <!-- APDD -->
+                    <div class="glass-panel sub-module-card">
+                        <div class="module-title">APDD <span>// Defect Detection</span></div>
+                        <div style="color: var(--secondary-accent); font-weight: 600; margin-bottom: 10px;">AI Pattern Defect Detection</div>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">
+                            The final verification node. It applies ADSE's amplified signals to automatically classify and detect micro-pattern anomalies and process particles.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -305,9 +356,10 @@
 
     <section id="workstation">
         <div class="container">
-            <h2 class="section-title" style="margin-bottom: 10px;">HypersynapseAX On-Premise Infrastructure</h2>
-            <div style="text-align: center; color: var(--primary-accent); font-family: 'JetBrains Mono', monospace; margin-bottom: 40px; font-size: 1.1rem; letter-spacing: 2px;">DEVELOPMENT ENVIRONMENT</div>
-            <div class="specs-container">
+            <h2 class="section-title">On-Premise Infrastructure</h2>
+            <div class="section-subtitle">HYPERSYNAPSEAX DEVELOPMENT ENVIRONMENT</div>
+            
+            <div class="glass-panel specs-container">
                 <div class="spec-item">
                     <div class="spec-label">CPU</div>
                     <div class="spec-value">AMD Ryzen Threadripper PRO 9985WX <span class="highlight-badge">Shimada's Choice</span></div>
@@ -337,8 +389,8 @@
                     <div class="spec-value">CORSAIR WS3000 ATX3.1</div>
                 </div>
             </div>
-            <p style="text-align: center; color: var(--text-muted); margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
-                * Engineered to handle the most demanding APFO & ADSE workloads with zero compromise.
+            <p style="text-align: center; color: var(--text-muted); margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                // Hardware meticulously engineered to sustain continuous ADSE neural processing.
             </p>
         </div>
     </section>
@@ -350,5 +402,46 @@
         </div>
     </footer>
 
+    <!-- Initialize Particles -->
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00f0ff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3, "random": false },
+                "size": { "value": 2, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00f0ff",
+                    "opacity": 0.15,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.5,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } },
+                    "push": { "particles_nb": 3 }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>
